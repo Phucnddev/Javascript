@@ -42,6 +42,32 @@ function findFirstNumber(arr, diviedNum) {
     return res;
 }
 
+
+
+
+
+// function moveToTop(arr, nameToFind) {
+//     let item = null;
+//     const newArr = [];
+
+//     for (let i = 0; i < arr.length; i++) {
+//       if (arr[i] && arr[i].name === nameToFind) {
+//         item = arr[i];
+//       } else {
+//         newArr.push(arr[i]);
+//       }
+//     }
+
+//     if (item) {
+//       newArr.unshift(item);
+//     }
+
+//     return newArr;
+//   }
+//   const updatedMarks = moveToTop(marks, 'Yellow');
+//   console.log(updatedMarks);
+
+
 // Homework 
 const marks = [
     {
@@ -64,30 +90,36 @@ const marks = [
     },
 ];
 /**
- * input name: Yellow
- * find index of the item in the array
- * update this item into the top of the list, can return a new list
+ * 1. moveToTop2, you have to modify the current array
+ * 2. sort the marks array following decrement 
  */
 
+// tạo ra mãng mới 
+function moveToTop2(arr, name) {
+    // debugger;
+    let matchedItem = null;
+    const newArr = arr.filter((item) => {
+        if (item?.name === name) {
+            matchedItem = item
+        }
+        return item && item.name !== name
+    })
+    return matchedItem ? [matchedItem, ...newArr] : newArr;
 
+}
+console.log('move 2', moveToTop2(marks, 'Yellow'))
 
-function moveToTop(arr, nameToFind) {
-    let item = null;
-    const newArr = [];
-  
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] && arr[i].name === nameToFind) {
-        item = arr[i];
-      } else {
-        newArr.push(arr[i]);
-      }
+// thay đổi mảng gốc 
+
+function moveToTop(arr, name) {
+    const index = arr.findIndex(item => item?.name === name);
+    if(index !== -1) {
+        const temporaryArray = arr.splice(index, 1);
+        const removed = temporaryArray[0];
+
+        arr.unshift(removed);
     }
-  
-    if (item) {
-      newArr.unshift(item);
-    }
-  
-    return newArr;
-  }
-  const updatedMarks = moveToTop(marks, 'Yellow');
-  console.log(updatedMarks);
+    return arr;
+}
+console.log(moveToTop(marks, 'Yellow'))
+
