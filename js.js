@@ -286,10 +286,187 @@ function mergeSortArray(arr1, arr2) {
             j++;
         }
     }
+    while(i < arr1.length) {
+        newArr.push(arr1[i]);
+        i++;
+    }
+
+    while(j < arr2.length) {
+        newArr.push(arr2[j]);
+        j++
+    }
    
     return mergedArray;
 }
 
+function merge(arr1, arr2) {
+    let newArr = []; 
+    let i = 0; 
+    let j = 0; 
 
-const result4 = mergeSortArray(nums11, nums22);
-console.log(result4);
+    while (i < arr1.length && j < arr2.length) {
+        if (arr1[i] < arr2[j]) {
+            newArr.push(arr1[i]);
+            i++;
+        } else {
+            newArr.push(arr2[j]);
+            j++;
+        }
+    }
+
+    while (i < arr1.length) {
+        newArr.push(arr1[i]);
+        i++;
+    }
+
+    while (j < arr2.length) {
+        newArr.push(arr2[j]);
+        j++;
+    }
+
+    return newArr; 
+}
+
+function merge(arr1, arr2) {
+    let newArr = []; // Khởi tạo mảng mới
+    let i = 0; // Chỉ số cho arr1
+    let j = 0; // Chỉ số cho arr2
+
+    // So sánh và thêm phần tử từ cả hai mảng
+    while (i < arr1.length && j < arr2.length) {
+        if (arr1[i] < arr2[j]) {
+            newArr.push(arr1[i]);
+            i++;
+        } else {
+            newArr.push(arr2[j]);
+            j++;
+        }
+    }
+
+    // Thêm phần tử còn lại từ arr1 (nếu có)
+    while (i < arr1.length) {
+        newArr.push(arr1[i]);
+        i++;
+    }
+
+    // Thêm phần tử còn lại từ arr2 (nếu có)
+    while (j < arr2.length) {
+        newArr.push(arr2[j]);
+        j++;
+    }
+
+    return newArr; // Trả về mảng hợp nhất
+}
+
+// Gọi hàm và in kết quả
+const nums1 = [0, 4, 9];
+const nums2 = [2, 2, 4, 7, 9];
+const result9 = merge(nums1, nums2);
+console.log(result9); 
+
+
+
+// const result4 = mergeSortArray(nums11, nums22);
+// console.log(result4);
+
+
+// function convert2(products) {
+//     let totalQuantity = 0;
+    
+//     const formattedProducts = products.map(product => {
+       
+//         totalQuantity += product.quantity;
+
+        
+//         const formattedPrice = product.price('vi-VN');
+
+//         return {
+//             name: product.name,
+//             price: formattedPrice
+//         };
+//     });
+
+//     return {
+//         totalQuantity: totalQuantity,
+//         products: formattedProducts
+//     };
+// }
+
+// Kiểm tra kết quả
+// const result5 = convert2(products3);
+// console.log("result5",result5);
+
+// function convertProduct(products) {
+    
+// }
+
+// // function convertPrice(priceNum) {
+// //     const formattedPrice = priceNum.price('vi-VN');
+// //     return formattedPrice;
+// // }
+
+// console.log(convertPrice(2000000))
+
+
+function convertPrice(priceNum) {
+    let priceStr = priceNum.toString().split('').reverse();
+    let formattedPrice = [];
+
+    for (let i = 0; i < priceStr.length; i++) {
+        if (i > 0 && i % 3 === 0) {
+            formattedPrice.push(',');
+        }
+        formattedPrice.push(priceStr[i]);
+    }
+
+    return formattedPrice.reverse().join('');
+}
+
+// Ví dụ sử dụng
+console.log(convertPrice(20000000)); // "20,000,000"
+console.log(convertPrice(3000000));  // "3,000,000"
+
+
+function merge8(arr1, arr2) {
+    let newArr = [];
+    let i = 0;
+    let j = 0;
+
+    // Duyệt qua các phần tử của arr1 và arr2 cho đến khi một trong hai mảng hết phần tử
+    while (i < arr1.length || j < arr2.length) {
+        if (i < arr1.length && (j >= arr2.length || arr1[i] < arr2[j])) {
+            newArr.push(arr1[i]);
+            i++;
+        } else {
+            newArr.push(arr2[j]);
+            j++;
+        }
+    }
+
+    return newArr;
+}
+
+
+const person = {
+    name: "John",
+    birthDate: '1980-02-09',
+    getAge: function() {
+        const birthDate = new Date(this.birthDate); // Chuyển ngày sinh thành đối tượng Date
+        const today = new Date(); // Ngày hiện tại
+
+        // Tính tuổi dựa trên năm hiện tại và năm sinh
+        return today.getFullYear() - birthDate.getFullYear();
+
+        // Kiểm tra nếu chưa đến sinh nhật trong năm nay, thì trừ 1
+        // const monthDiff = today.getMonth() - birthDate.getMonth();
+        // const dayDiff = today.getDate() - birthDate.getDate();
+        
+        // if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        //     age--;
+        // }
+
+    }
+};
+
+// Sử dụng hàm
+console.log(person.getAge()); // In ra tuổi của John
