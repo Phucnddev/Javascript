@@ -171,3 +171,64 @@ greet.apply(person2); // Kết quả: "Hello, I'm Dave"
 
 const greetDave = greet.bind(person2);
 greetDave(); // Kết quả: "Hello, I'm Dave"
+
+
+
+
+
+
+ /**
+   * Homework:
+   * fetchData() {
+   *    posts = []
+   *    users = []
+   * 
+   *    return [{
+   *      userId: 1,
+          id: 1,
+          title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+          body: "et iusto sed quo iure
+          voluptatem occaecati omnis eligendi aut ad
+          voluptatem doloribus vel accusantium quis pariatur
+          molestiae porro eius odio et labore et velit aut",
+          author: "Leanne Graham"
+   *    }, {
+   *      userId: 3,
+          id: 2,
+          title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+          body: "et iusto sed quo iure
+          voluptatem occaecati omnis eligendi aut ad
+          voluptatem doloribus vel accusantium quis pariatur
+          molestiae porro eius odio et labore et velit aut",
+          author: "Clementine Bauch"
+   *    }]
+   * }
+   */
+
+
+  async function fetchData() {
+    try {
+      const postsRespo = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const usersRespo = await fetch('https://jsonplaceholder.typicode.com/users');
+
+      const posts = await postsRespo.json();
+      const users = await usersRespo.json();
+
+
+      const mappingData = posts.map(post => {
+        const user = users.find(u => u.id === post.userId);
+        return {
+          userId : post.userId,
+          id: post.id,
+          title : post.title,
+          body: post.body,
+          author : user ? user.name : 'Unknown'
+        }
+      })
+      return mappingData;
+    } catch (error) {
+      console.log(error.status);
+    }
+  }
+
+  fetchData().then((data) => console.log(data))
